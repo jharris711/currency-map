@@ -25,12 +25,13 @@ $ npm start
 *The app will be available in the browser at <http://localhost:3000>*
 
 ### Packages Used:
-- Axios
-- Chroma.js
-- Leaflet
-- React
-- Redux
-- Redux-Logger
-- Redux-Thunk
-- Semantic-UI
-- Tachyons
+- [Axios](https://github.com/axios/axios)
+- [Chroma.js](https://gka.github.io/chroma.js/)
+- [Leaflet](https://leafletjs.com/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [React-Redux](https://react-redux.js.org/)
+- [Redux-Logger](https://github.com/LogRocket/redux-logger#readme)
+- [Redux-Thunk](https://github.com/reduxjs/redux-thunk)
+- [Semantic-UI-React](https://react.semantic-ui.com/)
+- [Tachyons](https://tachyons.io/)
