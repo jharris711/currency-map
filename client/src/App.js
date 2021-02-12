@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-import Map from './components/Map'
+import Map from './components/map/Map'
 import Control from './components/control/Control'
 
 const App = () => {
