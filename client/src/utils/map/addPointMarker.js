@@ -5,6 +5,8 @@ export const addPointMarker = (
     data,
 ) => {
     point_marker_layer.clearLayers()
+    console.log(data.lat)
+    console.log(data.lon)
     if (data !== []) {
         try {
             L.marker(

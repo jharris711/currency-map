@@ -1,4 +1,4 @@
-let codeToCountry = {
+const codes = {
     "AED" : "United Arab Emirates",
     "AFN" : "Afghanistan",
     "ALL" : "Albania",
@@ -6,7 +6,7 @@ let codeToCountry = {
     "ANG" : "Netherlands Antilles",
     "AOA" : "Angola",
     "ARS" : "Argentina",
-    "AUD" : "Australia, Australian Antarctic Territory, Christmas Island, Cocos (Keeling) Islands, Heard and McDonald Islands, Kiribati, Nauru, Norfolk Island, Tuvalu",
+    "AUD" : "Australia",
     "AWG" : "Aruba",
     "AZN" : "Azerbaijan",
     "BAM" : "Bosnia and Herzegovina",
@@ -27,12 +27,11 @@ let codeToCountry = {
     "BZD" : "Belize",
     "CAD" : "Canada",
     "CDF" : "Democratic Republic of Congo",
-    "CHE" : "Switzerland",
-    "CHF" : "Switzerland, Liechtenstein",
+    "CHF" : "Switzerland",
     "CHW" : "Switzerland",
     "CLF" : "Chile",
     "CLP" : "Chile",
-    "CNY" : "Mainland China",
+    "CNY" : "China",
     "COP" : "Colombia",
     "COU" : "Colombia",
     "CRC" : "Costa Rica",
@@ -41,14 +40,14 @@ let codeToCountry = {
     "CYP" : "Cyprus",
     "CZK" : "Czech Republic",
     "DJF" : "Djibouti",
-    "DKK" : "Denmark, Faroe Islands, Greenland",
+    "DKK" : "Denmark",
     "DOP" : "Dominican Republic",
     "DZD" : "Algeria",
     "EEK" : "Estonia",
     "EGP" : "Egypt",
     "ERN" : "Eritrea",
     "ETB" : "Ethiopia",
-    "EUR" : "European Union, see eurozone",
+    "EUR" : "European Union",
     "FJD" : "Fiji",
     "FKP" : "Falkland Islands",
     "GBP" : "United Kingdom",
@@ -123,7 +122,7 @@ let codeToCountry = {
     "QAR" : "Qatar",
     "RON" : "Romania",
     "RSD" : "Serbia",
-    "RUB" : "Russia, Abkhazia, South Ossetia",
+    "RUB" : "Russia",
     "RWF" : "Rwanda",
     "SAR" : "Saudi Arabia",
     "SBD" : "Solomon Islands",
@@ -150,7 +149,6 @@ let codeToCountry = {
     "TZS" : "Tanzania",
     "UAH" : "Ukraine",
     "UGX" : "Uganda",
-    "USD" : "United States, American Samoa, British Indian Ocean Territory, Ecuador, El Salvador, Guam, Haiti, Marshall Islands, Micronesia, Northern Mariana Islands, Palau, Panama, Puerto Rico, East Timor, Turks and Caicos Islands, United States, Virgin Islands",
     "USD" : "United States",
     "UYU" : "Uruguay",
     "UZS" : "Uzbekistan",
@@ -181,4 +179,4 @@ let codeToCountry = {
     "ZWD" : "Zimbabwe"
 }
 
-export default codeToCountry
+export default codes

@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'
 import 'leaflet-defaulticon-compatibility'
 
-import { addBorder, addPointMarker } from './functions'
+import { addBorder, addPointMarker } from '../../utils'
 
 // Define the container styles the map sits in:
 const style = {
@@ -22,7 +22,7 @@ const thunderforestAPIkey = process.env.REACT_APP_THUNDERFOREST_API_KEY
 
 const maps = {
     light: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'),
-    dark: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'),
+    dark: L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'),
     spinal: L.tileLayer(`https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=${thunderforestAPIkey}`),
 }
 
@@ -34,7 +34,7 @@ const country = {
 // Params to be passed to the map:
 const mapParams = {
     center: [20, -20],
-    zoom: 4,
+    zoom: 3,
     zoomControl: false,
     maxBounds: L.latLngBounds(L.latLng(-150, -250), L.latLng(150, 250)),
     layers: [

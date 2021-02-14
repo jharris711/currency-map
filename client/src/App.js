@@ -1,20 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import { connect } from 'react-redux'
 
 import Map from './components/map/Map'
-import Control from './components/control/Control'
+import MUIControl from './components/control/MUIControl'
 
-const App = () => {
+import { getSymbols } from './redux'
+
+const App = ({
+  symbols,
+  country_data,
+  getSymbols,
+}) => {
+
+  // Get the currency symbols from Fixer.io
+  // on load:
+  useEffect(() => {
+    getSymbols()
+  }, [getSymbols])
+
   return (
-    <Provider store={store}>
       <div className="App">
         <Map />
-        <Control />
+        <MUIControl />
       </div>
-    </Provider>
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    symbols: state.symbols.symbols,
+    country_data: state.getCountry.country_data,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getSymbols: () => dispatch(getSymbols()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

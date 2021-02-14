@@ -5,7 +5,7 @@ export const addBorder = (
     data, 
 ) => {
     border_layer.clearLayers()
-    console.log(data)
+    console.log(data.geojson)
     if (data !== []) {
         // const color = chroma.random()
         const color = 'rgb(65, 83, 175)'

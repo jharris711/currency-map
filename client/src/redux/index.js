@@ -1,7 +1,8 @@
 export { 
     getCountryRequest, 
     getCountrySuccess, 
-    getCountryFailure
+    getCountryFailure,
+    getCountryData,
 } from './actions/country/getCountry'
 
 export {
@@ -9,3 +10,7 @@ export {
     getLatestRatesSuccess,
     getLatestRatesFailure,
 } from './actions/latestRates/getLatestRates'
+
+export {
+    getSymbols,
+} from './actions/symbols/symbols'
