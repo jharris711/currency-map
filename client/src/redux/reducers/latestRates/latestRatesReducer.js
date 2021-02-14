@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-const getLatestRatesReducer = (state = initialState, action) => {
+const latestRatesReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.GET_LATEST_RATES_REQUEST:
             return {
@@ -36,4 +36,4 @@ const getLatestRatesReducer = (state = initialState, action) => {
 }
 
 
-export default getLatestRatesReducer
+export default latestRatesReducer

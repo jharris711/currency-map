@@ -82,7 +82,7 @@ const Map = ({
         if (country_data) {
             // console.log(country_data)
             addBorder(country.border, country_data)
-            addPointMarker(country.point_marker, country_data)
+            addPointMarker(country.point_marker, country_data, latest_rates)
         }
     }, [country_data])
 
@@ -94,7 +94,7 @@ const Map = ({
 
 const mapStateToProps = state => {
     return {
-        latest_rates: state.getLatestRates.latest_rates,
+        latest_rates: state.latestRates.latest_rates,
         country_data: state.getCountry.country_data,
     }
 }

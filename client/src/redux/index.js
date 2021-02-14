@@ -1,15 +1,10 @@
-export { 
-    getCountryRequest, 
-    getCountrySuccess, 
-    getCountryFailure,
+export {
     getCountryData,
 } from './actions/country/getCountry'
 
 export {
-    getLatestRatesRequest,
-    getLatestRatesSuccess,
-    getLatestRatesFailure,
-} from './actions/latestRates/getLatestRates'
+    getLatestRates,
+} from './actions/latestRates/latestRates'
 
 export {
     getSymbols,

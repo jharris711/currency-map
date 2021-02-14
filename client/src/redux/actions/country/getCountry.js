@@ -2,14 +2,14 @@ import axios from 'axios'
 import types from '../types'
 import EuropeanContinentalData from '../../../data/Europe.json'
 
-export const getCountryRequest = () => {
+const getCountryRequest = () => {
     return {
         type: types.GET_COUNTRY_REQUEST,
     }
 }
 
 
-export const getCountrySuccess = response => {
+const getCountrySuccess = response => {
     return {
         type: types.GET_COUNTRY_SUCCESS,
         payload: response,
@@ -17,7 +17,7 @@ export const getCountrySuccess = response => {
 }
 
 
-export const getCountryFailure = error => {
+const getCountryFailure = error => {
     return {
         type: types.GET_COUNTRY_FAILURE,
         payload: error,
@@ -28,7 +28,7 @@ export const getCountryData = country => {
     return dispatch => {
         dispatch(getCountryRequest())
         if (country === 'European Union') {
-            const data = {data: [EuropeanContinentalData.features]}
+            const data = {data: EuropeanContinentalData.features}
             dispatch(getCountrySuccess(data))
         } else {
             const url = {

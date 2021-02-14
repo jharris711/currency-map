@@ -20,9 +20,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import PinDropIcon from '@material-ui/icons/PinDrop'
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 import {
     getCountryData,
+    getLatestRates,
 } from '../../redux'
 
 import codes from '../../data/countryCodes'
@@ -86,15 +88,17 @@ const paperStyles = makeStyles((theme) => ({
 
 const MUIControl = ({
     symbols,
-    getCountryData,
     country_data,
+    latest_rates,
+    getCountryData,
+    getLatestRates,
 }) => {
     const paperClasses = paperStyles()
     const inputClasses = inputStyles()
 
     const [country, setCountry] = useState('')
     const [symbolOptions, setSymbolsOptions] = useState([])
-    const [selectedCurrency, setSelectedCurrency] = useState('USD')
+    const [selectedCurrency, setSelectedCurrency] = useState('DZD')
 
     // Prepare the symbol options to pass to the
     // dropdown menu:
@@ -125,7 +129,12 @@ const MUIControl = ({
 
     useEffect(() => {
         setCountry(codes[selectedCurrency])
+        getLatestRates(selectedCurrency)
     }, [selectedCurrency])
+
+    useEffect(() => {
+        console.log(latest_rates)
+    }, [latest_rates])
 
     return (
         <Paper className={paperClasses.root} elevation={3}>
@@ -151,9 +160,16 @@ const MUIControl = ({
                         href="https://fixer.io/"
                         target="_blank"
                         rel="noopener noreferrer">
-                        Fixer.io API
+                        Fixer.io
                     </a>{' '}
-                    for current and historical foreign exchange (forex) rates.
+                    and {' '}
+                    <a
+                        href="https://nominatim.org/release-docs/develop/api/Search/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Nominatim
+                    </a>{' '}
+                    APIs.
                     </p>
                 </Typography>
             </Grid>
@@ -191,27 +207,26 @@ const MUIControl = ({
                    <strong>Currency Info:</strong>
                 </Typography> */}
                 <Typography variant="body1" gutterBottom align="center">
-                <Grid item xs={12} md={6}>
-                    <List dense={true}>
-                        <ListItem>
-                            <ListItemIcon>
-                                <PinDropIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={country ? country : "Country"}
-                            />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon>
-                                <MonetizationOnIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={selectedCurrency ? selectedCurrency : "Currency"}
-                            />
-                        </ListItem>
-                    </List>
-                </Grid>
-
+                    <Grid item xs={12} md={6}>
+                        <List dense={true}>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <PinDropIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={country ? country : "Country"}
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <MonetizationOnIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={selectedCurrency ? selectedCurrency : "Currency"}
+                                />
+                            </ListItem>
+                        </List>
+                    </Grid>
                 </Typography>
             </Grid>
         </Paper>
@@ -222,12 +237,14 @@ const mapStateToProps = state => {
     return {
       symbols: state.symbols.symbols,
       country_data: state.getCountry.country_data,
+      latest_rates: state.latestRates.latest_rates,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getCountryData: country => dispatch(getCountryData(country)),
+        getLatestRates: currency_code => dispatch(getLatestRates(currency_code)),
     }
 }
 

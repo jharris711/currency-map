@@ -2,10 +2,9 @@ import L from 'leaflet'
 
 export const addBorder = (
     border_layer, 
-    data, 
+    data,
 ) => {
     border_layer.clearLayers()
-    console.log(data.geojson)
     if (data !== []) {
         // const color = chroma.random()
         const color = 'rgb(65, 83, 175)'
