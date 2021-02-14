@@ -1,5 +1,5 @@
 # Currency Map (React / Redux / Leaflet.js)
-Map app that displays information about selected countries' currencies.
+Map app that displays information about selected currencies.
  
 
 This app uses the [Nominatim API](https://nominatim.org/release-docs/develop/api/Overview/) to request 
