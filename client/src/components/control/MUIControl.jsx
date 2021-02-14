@@ -19,6 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import PinDropIcon from '@material-ui/icons/PinDrop'
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Button from '@material-ui/core/Button'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import { useSnackbar } from 'notistack'
 
@@ -26,6 +28,8 @@ import {
     getCountryData,
     getLatestRates,
     sendDataToTable,
+    clearCountryData,
+    clearLatestRates,
 } from '../../redux'
 
 import codes from '../../data/countryCodes'
@@ -90,7 +94,7 @@ const paperStyles = makeStyles((theme) => ({
 const listStyles = makeStyles((theme) => ({
     root: {
         maxHeight: '25vh',
-        width: '15vw',
+        width: '12.5vw',
         overflowY: 'auto',
         overflowX: 'hidden',
     }
@@ -106,6 +110,8 @@ const MUIControl = ({
     getCountryData,
     getLatestRates,
     sendDataToTable,
+    clearCountryData,
+    clearLatestRates,
 }) => {
     const paperClasses = paperStyles()
     const inputClasses = inputStyles()
@@ -157,6 +163,7 @@ const MUIControl = ({
     }, [countries, getCountryData])
 
     useEffect(() => {
+        console.log(selectedCurrencies)
         if (Array.from(selectedCurrencies) !== []) {
             const country_arr = Array.from(selectedCurrencies)
             .map(selection => codes[selection])
@@ -165,9 +172,10 @@ const MUIControl = ({
     }, [selectedCurrencies, getLatestRates])
 
     useEffect(() => {
-        try{
+        console.log(selectedCurrencies)
+        if (selectedCurrencies !== []) {
             Array.from(selectedCurrencies).forEach(currency => getLatestRates(currency))
-        } catch (error) {}
+        }
     }, [selectedCurrencies, getLatestRates])
 
     useEffect(() => {
@@ -205,6 +213,11 @@ const MUIControl = ({
             closeSnackbar(c_noti)
         }
     }, [get_country_loading,  enqueueSnackbar, closeSnackbar])
+
+    const handleRemoveSelection = (event, selection, country) => {
+        const updated = addToOrRemoveFromArray(selection, Array.from(selectedCurrencies))
+        setSelectedCurrencies(updated)
+    }
 
     return (
         <Paper className={paperClasses.root} elevation={3}>
@@ -265,7 +278,7 @@ const MUIControl = ({
                     </MenuItem>
                     {symbolOptions.map(symbol => (
                         <MenuItem key={symbol.key} value={symbol.value}>
-                        {symbol.text}
+                            {symbol.text}
                         </MenuItem>
                     ))}
                 </Select>
@@ -298,6 +311,17 @@ const MUIControl = ({
                                                 primary={selectedCurrencies ? selectedCurrencies[index] : "Currency"}
                                             />
                                         </ListItem> 
+                                        <ListItem>
+                                            <Button
+                                                variant="contained"
+                                                color="default"
+                                                startIcon={<HighlightOffIcon />}
+                                                size="small"
+                                                onClick={(event, selection, country) => handleRemoveSelection(event, selectedCurrencies[index])}
+                                            >
+                                                Remove Selection
+                                            </Button>
+                                        </ListItem> 
                                         <Divider /> 
                                     </>
                                 )    
@@ -307,7 +331,7 @@ const MUIControl = ({
                 </Typography>
             </Grid>
         </Paper>
-    );
+    )
 }
 
 const mapStateToProps = state => {
@@ -322,6 +346,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        clearCountryData: () => dispatch(clearCountryData()),
+        clearLatestRates: () => dispatch(clearLatestRates()),
         sendDataToTable: data => dispatch(sendDataToTable(data)),
         getCountryData: country => dispatch(getCountryData(country)),
         getLatestRates: currency_code => dispatch(getLatestRates(currency_code)),

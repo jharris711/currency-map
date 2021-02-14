@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AgGridColumn, AgGridReact } from 'ag-grid-react'
-import { makeStyles, withStyles  } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
 import { connect } from 'react-redux'
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -37,6 +36,10 @@ const Table = ({
         setGridColumnApi(params.columnApi)
     }
 
+    const numberSort = (num1, num2) => {
+        return num1 - num2
+    }
+
     return (
         <Paper className={paperClasses.root} elevation={3}>
             <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 28vw)', width: '100%' }}>
@@ -46,11 +49,11 @@ const Table = ({
                     <AgGridColumn field="country" headerName="Country" sortable filter></AgGridColumn>
                     <AgGridColumn field="rates.date" headerName="Date (YYYY-MM-DD)" sortable filter></AgGridColumn>
                     <AgGridColumn field="symbol" headerName="Symbol" sortable filter></AgGridColumn>
-                    <AgGridColumn field="rates.rates.USD" headerName="USD" sortable filter></AgGridColumn>
-                    <AgGridColumn field="rates.rates.GBP" headerName="GBP" sortable filter></AgGridColumn>
-                    <AgGridColumn field="rates.rates.EUR" headerName="EUR" sortable filter></AgGridColumn>
-                    <AgGridColumn field="rates.rates.JPY" headerName="JPY" sortable filter></AgGridColumn>
-                    <AgGridColumn field="rates.rates.BTC" headerName="BTC" sortable filter></AgGridColumn>
+                    <AgGridColumn field="rates.rates.USD" headerName="USD" comparator={numberSort} filter="agNumberColumnFilter" sortable filter></AgGridColumn>
+                    <AgGridColumn field="rates.rates.GBP" headerName="GBP" comparator={numberSort} filter="agNumberColumnFilter" sortable filter></AgGridColumn>
+                    <AgGridColumn field="rates.rates.EUR" headerName="EUR" comparator={numberSort} filter="agNumberColumnFilter" sortable filter></AgGridColumn>
+                    <AgGridColumn field="rates.rates.JPY" headerName="JPY" comparator={numberSort} filter="agNumberColumnFilter" sortable filter></AgGridColumn>
+                    <AgGridColumn field="rates.rates.BTC" headerName="BTC" comparator={numberSort} filter="agNumberColumnFilter" sortable filter></AgGridColumn>
                 </AgGridReact>
             </div>
         </Paper>
