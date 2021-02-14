@@ -4,7 +4,7 @@
   "description": "Map app that displays information about selected countries' currencies.",
   "main": "index.js",
   "scripts": {
-    "start": "npm start --prefix ./client",
+    "start": "npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
