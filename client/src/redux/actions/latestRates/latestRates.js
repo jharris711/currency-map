@@ -11,6 +11,7 @@ const getLatestRatesRequest = () => {
 
 
 const getLatestRatesSuccess = response => {
+    console.log(response)
     return {
         type: types.GET_LATEST_RATES_SUCCESS,
         payload: response,
@@ -38,6 +39,7 @@ export const getLatestRates = currency_code => {
         dispatch(getLatestRatesRequest())
         axios.get(`${url.base}${url.api}${url.access_key}${url.base_symbol}${url.symbols}`)
             .then(response => {
+                console.log(response)
                 dispatch(getLatestRatesSuccess(response))
             })
             .catch(error => {

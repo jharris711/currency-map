@@ -4,7 +4,6 @@ export const addBorder = (
     border_layer, 
     data,
 ) => {
-    border_layer.clearLayers()
     if (data !== []) {
         // const color = chroma.random()
         const color = 'rgb(65, 83, 175)'

@@ -3086,6 +3086,18 @@
     "loader-utils" "^2.0.0"
     "regex-parser" "^2.2.11"
 
+"ag-grid-community@^25.0.1", "ag-grid-community@~25.0.0":
+  "integrity" "sha512-h7GIMsJ5N/xRDwKSyOWx0skhtiXs/vEgRqkkHfVopJ4Ql+rtg8If/YYxj/EtTJa1NeIZocWmHBd5Zb/iiUR+bg=="
+  "resolved" "https://registry.npmjs.org/ag-grid-community/-/ag-grid-community-25.0.1.tgz"
+  "version" "25.0.1"
+
+"ag-grid-react@^25.0.1":
+  "integrity" "sha512-o4lGsTX5PWmlzcT8gfJ1C3YuQmljQVT9UXetMhTsbOjwJbZiMyPDm8fFKotFMxbf/VhgYD4SQmcMD3Fy9r/y1g=="
+  "resolved" "https://registry.npmjs.org/ag-grid-react/-/ag-grid-react-25.0.1.tgz"
+  "version" "25.0.1"
+  dependencies:
+    "prop-types" "^15.6.2"
+
 "aggregate-error@^3.0.0":
   "integrity" "sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA=="
   "resolved" "https://registry.npmjs.org/aggregate-error/-/aggregate-error-3.1.0.tgz"
@@ -4182,7 +4194,7 @@
     "kind-of" "^6.0.2"
     "shallow-clone" "^3.0.0"
 
-"clsx@^1.0.4":
+"clsx@^1.0.4", "clsx@^1.1.0":
   "integrity" "sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA=="
   "resolved" "https://registry.npmjs.org/clsx/-/clsx-1.1.1.tgz"
   "version" "1.1.1"
@@ -8580,6 +8592,14 @@
     "query-string" "^4.1.0"
     "sort-keys" "^1.0.0"
 
+"notistack@^1.0.3":
+  "integrity" "sha512-bRGF/eg2qNQ8BwagPLkHiqrz+W00PYtGY5Xl33I0Of1BTm7arksZO1JxssPTlti0qw127CxuWxm637ipn0eZ9g=="
+  "resolved" "https://registry.npmjs.org/notistack/-/notistack-1.0.3.tgz"
+  "version" "1.0.3"
+  dependencies:
+    "clsx" "^1.1.0"
+    "hoist-non-react-statics" "^3.3.0"
+
 "npm-run-path@^2.0.0":
   "integrity" "sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8="
   "resolved" "https://registry.npmjs.org/npm-run-path/-/npm-run-path-2.0.2.tgz"
@@ -10125,7 +10145,7 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dom@^16.14.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=16.6.0":
+"react-dom@^16.14.0", "react-dom@^16.3.0 || ^17.0.0", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=16.6.0":
   "integrity" "sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.14.0.tgz"
   "version" "16.14.0"
@@ -10228,7 +10248,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^16.14.0", "react@^16.4.0-0", "react@^16.8.0 || ^17.0.0", "react@>=16.6.0":
+"react@^16.14.0", "react@^16.3.0 || ^17.0.0", "react@^16.4.0-0", "react@^16.8.0 || ^17.0.0", "react@>=16.6.0":
   "integrity" "sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
   "version" "16.14.0"

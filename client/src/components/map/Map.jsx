@@ -80,9 +80,14 @@ const Map = ({
     // Any time country_data updates:
     useEffect(() => {
         if (country_data) {
-            // console.log(country_data)
-            addBorder(country.border, country_data)
-            addPointMarker(country.point_marker, country_data, latest_rates)
+            console.log()
+            country.border.clearLayers()
+            country.point_marker.clearLayers()
+            Array.from(country_data).forEach(c => {
+                console.log(c)
+                addBorder(country.border, c)
+                addPointMarker(country.point_marker, c, latest_rates)
+            })
         }
     }, [country_data, latest_rates])
 
@@ -95,7 +100,7 @@ const Map = ({
 const mapStateToProps = state => {
     return {
         latest_rates: state.latestRates.latest_rates,
-        country_data: state.getCountry.country_data,
+        country_data: state.country.country_data,
     }
 }
 

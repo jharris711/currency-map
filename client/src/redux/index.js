@@ -1,6 +1,6 @@
 export {
     getCountryData,
-} from './actions/country/getCountry'
+} from './actions/country/country'
 
 export {
     getLatestRates,
@@ -9,3 +9,7 @@ export {
 export {
     getSymbols,
 } from './actions/symbols/symbols'
+
+export {
+    sendDataToTable,
+} from './actions/table/table'

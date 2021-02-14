@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
 
-import getCountryReducer from "./reducers/country/getCountryReducer"
+import countryReducer from "./reducers/country/countryReducer"
 import latestRatesReducer from './reducers/latestRates/latestRatesReducer'
 import symbolsReducer from './reducers/symbols/symbolsReducer'
+import tableReducer from './reducers/table/tableReducer'
 
 const rootReducer = combineReducers({
-    getCountry: getCountryReducer,
+    country: countryReducer,
     latestRates: latestRatesReducer,
     symbols: symbolsReducer,
+    table: tableReducer,
 })
 
 

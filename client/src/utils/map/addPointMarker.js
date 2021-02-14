@@ -5,16 +5,12 @@ export const addPointMarker = (
     data,
     latest_rates,
 ) => {
-    console.log(latest_rates)
     let base_currency
     let rates
     if (latest_rates) {
         base_currency = latest_rates.base
         rates = latest_rates.rates
     }
-    console.log(base_currency, rates)
-    point_marker_layer.clearLayers()
-    console.log(latest_rates)
     if (data !== []) {
         try {
             L.marker(

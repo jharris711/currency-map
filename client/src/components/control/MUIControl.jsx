@@ -18,13 +18,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import PinDropIcon from '@material-ui/icons/PinDrop'
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+import { useSnackbar } from 'notistack'
 
 import {
     getCountryData,
     getLatestRates,
+    sendDataToTable,
 } from '../../redux'
 
 import codes from '../../data/countryCodes'
+import { addToOrRemoveFromArray } from '../../utils'
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -74,12 +79,21 @@ const paperStyles = makeStyles((theme) => ({
     width: '250px',
     top: '10px',
     left: '10px',
-    minHeight: 'calc(100vh - 5vw)',
-    maxHeight: 'calc(100vh - 3vw)',
-    overflow: 'auto',
+    minHeight: 'calc(100vh - 3.25vw)',
+    maxHeight: 'calc(100vh - 1vw)',
+    overflow: 'hidden',
     padding: '20px',
     backgroundColor: 'white'
   },
+}))
+
+const listStyles = makeStyles((theme) => ({
+    root: {
+        maxHeight: '25vh',
+        width: '15vw',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    }
 }))
 
 
@@ -87,15 +101,38 @@ const MUIControl = ({
     symbols,
     country_data,
     latest_rates,
+    get_country_loading,
+    get_latest_rates_loading,
     getCountryData,
     getLatestRates,
+    sendDataToTable,
 }) => {
     const paperClasses = paperStyles()
     const inputClasses = inputStyles()
+    const listClasses = listStyles()
 
-    const [country, setCountry] = useState('')
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+    const [countries, setCountries] = useState([])
+    const [selectValue, setSelectValue] = useState('')
     const [symbolOptions, setSymbolsOptions] = useState([])
-    const [selectedCurrency, setSelectedCurrency] = useState('DZD')
+    const [selectedCurrencies, setSelectedCurrencies] = useState([])
+
+    const action = () => {
+        return (
+            <>
+                <div style={{ padding: 0 }}>
+                    <CircularProgress size={18} thickness={5} color="secondary" />
+                </div>
+            </>
+        )
+    }
+
+    const handleChange = event => {
+        const selection = event.target.value
+        const addOrRemoveSelection = addToOrRemoveFromArray(selection, Array.from(selectedCurrencies))
+        setSelectValue(selection)
+        setSelectedCurrencies(addOrRemoveSelection)
+    }
 
     // Prepare the symbol options to pass to the
     // dropdown menu:
@@ -114,24 +151,60 @@ const MUIControl = ({
     }, [symbols])
 
     useEffect(() => {
-        if (country !== ''){
-            getCountryData(country)
+        Array.from(countries).forEach(c => {
+            getCountryData(c)
+        })
+    }, [countries, getCountryData])
+
+    useEffect(() => {
+        if (Array.from(selectedCurrencies) !== []) {
+            const country_arr = Array.from(selectedCurrencies)
+            .map(selection => codes[selection])
+            setCountries(country_arr)
         }
-    }, [country, getCountryData])
-
-
-    const handleChange = event => {
-        setSelectedCurrency(event.target.value)
-    }
+    }, [selectedCurrencies, getLatestRates])
 
     useEffect(() => {
-        setCountry(codes[selectedCurrency])
-        getLatestRates(selectedCurrency)
-    }, [selectedCurrency, getLatestRates])
+        try{
+            Array.from(selectedCurrencies).forEach(currency => getLatestRates(currency))
+        } catch (error) {}
+    }, [selectedCurrencies, getLatestRates])
 
     useEffect(() => {
-        console.log(latest_rates)
-    }, [latest_rates])
+        const data_for_table = Array.from(selectedCurrencies)
+            .map((symbol, index) => {
+                return {
+                    symbol,
+                    country: countries[index],
+                    rates: latest_rates[index],
+                }
+            })
+        sendDataToTable(data_for_table)
+    }, [countries, selectedCurrencies, latest_rates])
+
+    useEffect(() => {
+        let lr_noti
+        if (get_latest_rates_loading === true) {
+            lr_noti = enqueueSnackbar("Fetching latest exchange rates...", {
+                persist: true,
+                action,
+            })
+        } else {
+            closeSnackbar(lr_noti)
+        }
+    }, [get_latest_rates_loading, enqueueSnackbar, closeSnackbar])
+
+    useEffect(() => {
+        let c_noti
+        if (get_country_loading) {
+            c_noti = enqueueSnackbar("Fetching country data...", {
+                persist: true,
+                action,
+            })
+        } else {
+            closeSnackbar(c_noti)
+        }
+    }, [get_country_loading,  enqueueSnackbar, closeSnackbar])
 
     return (
         <Paper className={paperClasses.root} elevation={3}>
@@ -182,7 +255,7 @@ const MUIControl = ({
                 <Select
                     labelId="demo-customized-select-label"
                     id="demo-customized-select"
-                    value={selectedCurrency}
+                    value={selectValue}
                     onChange={handleChange}
                     input={<BootstrapInput />}
                     style={{ minWidth: '200px', maxWidth: '200px' }}
@@ -205,23 +278,30 @@ const MUIControl = ({
                 </Typography> */}
                 <Typography variant="body1" gutterBottom align="center">
                     <Grid item xs={12} md={6}>
-                        <List dense={true}>
-                            <ListItem>
-                                <ListItemIcon>
-                                    <PinDropIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={country ? country : "Country"}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemIcon>
-                                    <MonetizationOnIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={selectedCurrency ? selectedCurrency : "Currency"}
-                                />
-                            </ListItem>
+                        <List dense={true} className={listClasses.root}>
+                            {Array.from(selectedCurrencies).map((curr, index) => {
+                                return ( 
+                                    <>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <PinDropIcon />
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={countries ? countries[index] : "Country"}
+                                            />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <MonetizationOnIcon />
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={selectedCurrencies ? selectedCurrencies[index] : "Currency"}
+                                            />
+                                        </ListItem> 
+                                        <Divider /> 
+                                    </>
+                                )    
+                            })}
                         </List>
                     </Grid>
                 </Typography>
@@ -233,13 +313,16 @@ const MUIControl = ({
 const mapStateToProps = state => {
     return {
       symbols: state.symbols.symbols,
-      country_data: state.getCountry.country_data,
+      country_data: state.country.country_data,
+      get_country_loading: state.country.get_country_loading,
       latest_rates: state.latestRates.latest_rates,
+      get_latest_rates_loading: state.latestRates.get_latest_rates_loading,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        sendDataToTable: data => dispatch(sendDataToTable(data)),
         getCountryData: country => dispatch(getCountryData(country)),
         getLatestRates: currency_code => dispatch(getLatestRates(currency_code)),
     }

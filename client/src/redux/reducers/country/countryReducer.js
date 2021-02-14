@@ -1,4 +1,5 @@
 import types from '../../actions/types'
+import { addToOrRemoveFromArray } from '../../../utils'
 
 
 const initialState = { 
@@ -9,7 +10,7 @@ const initialState = {
 }
 
 
-const getCountryReducer = (state = initialState, action) => {
+const countryReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.GET_COUNTRY_REQUEST:
             return {
@@ -23,7 +24,7 @@ const getCountryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 get_country_loading: false,
-                country_data: action.payload.data[0],
+                country_data: addToOrRemoveFromArray(action.payload.data[0], Array.from(state.country_data)),
                 get_country_status: action.payload.status,
             }
         case types.GET_COUNTRY_FAILURE:
@@ -37,4 +38,4 @@ const getCountryReducer = (state = initialState, action) => {
 }
 
 
-export default getCountryReducer
+export default countryReducer
