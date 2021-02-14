@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { connect } from 'react-redux'
 
@@ -84,7 +84,7 @@ const Map = ({
             addBorder(country.border, country_data)
             addPointMarker(country.point_marker, country_data, latest_rates)
         }
-    }, [country_data])
+    }, [country_data, latest_rates])
 
     return (
         <div id="map" style={style} />

@@ -21,7 +21,7 @@ export const addPointMarker = (
                 [data.lat, data.lon]
             )
                 .addTo(point_marker_layer)
-                .bindPopup(`<div><div><h3>Currency: ${base_currency}</h3></div><div><h5>Exhange Rates</h5><ul><li>USD: ${rates.USD}</li><li>GBP: ${rates.GBP}</li><li>JPY: ${rates.JPY}</li><li>EUR: ${rates.EUR}</li></ul></div></div>`)
+                .bindPopup(`<div><div><h3>Currency: ${base_currency}</h3></div><div><h5>Exhange Rates</h5><ul><li>USD: ${rates.USD}</li><li>GBP: ${rates.GBP}</li><li>JPY: ${rates.JPY}</li><li>EUR: ${rates.EUR}</li><li>BTC: ${rates.BTC}</li></ul></div></div>`)
                 .openPopup()
         } catch (error) {
             console.log(error)

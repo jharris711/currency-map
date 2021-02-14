@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { connect } from 'react-redux'
 
-import axios from 'axios'
-
 import { makeStyles, withStyles  } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -20,7 +18,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import PinDropIcon from '@material-ui/icons/PinDrop'
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
-import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 import {
     getCountryData,
@@ -120,7 +117,7 @@ const MUIControl = ({
         if (country !== ''){
             getCountryData(country)
         }
-    }, [country])
+    }, [country, getCountryData])
 
 
     const handleChange = event => {
@@ -130,7 +127,7 @@ const MUIControl = ({
     useEffect(() => {
         setCountry(codes[selectedCurrency])
         getLatestRates(selectedCurrency)
-    }, [selectedCurrency])
+    }, [selectedCurrency, getLatestRates])
 
     useEffect(() => {
         console.log(latest_rates)
