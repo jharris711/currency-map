@@ -24,6 +24,12 @@ const getCountryFailure = error => {
     }
 }
 
+export const clearCountryData = () => {
+    return {
+        type: types.CLEAR_COUNTRY_DATA,
+    }
+}
+
 export const getCountryData = country => {
     return dispatch => {
         dispatch(getCountryRequest())

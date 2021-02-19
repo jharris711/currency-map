@@ -32,6 +32,11 @@ const latestRatesReducer = (state = initialState, action) => {
                 ...state,
                 get_latest_rates_error: action.payload
             }
+        case types.CLEAR_LATEST_RATES:
+            return {
+                ...state,
+                latest_rates: []
+            }
         default: return state
     }
 }

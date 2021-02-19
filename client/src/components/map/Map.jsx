@@ -79,8 +79,9 @@ const Map = ({
 
     // Any time country_data updates:
     useEffect(() => {
-        if (country_data) {
-            console.log()
+        console.log(country_data)
+        if (Array.from(country_data) !== []) {
+            console.log(country_data)
             country.border.clearLayers()
             country.point_marker.clearLayers()
             Array.from(country_data).forEach(c => {
@@ -88,6 +89,10 @@ const Map = ({
                 addBorder(country.border, c)
                 addPointMarker(country.point_marker, c, latest_rates)
             })
+        } else if (Array.from(country_data) === []) {
+            console.log(country_data)
+            country.border.clearLayers()
+            country.point_marker.clearLayers()
         }
     }, [country_data, latest_rates])
 

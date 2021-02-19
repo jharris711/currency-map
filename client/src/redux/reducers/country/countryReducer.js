@@ -21,6 +21,7 @@ const countryReducer = (state = initialState, action) => {
                 get_country_error: ''
             }
         case types.GET_COUNTRY_SUCCESS:
+            console.log(action.payload.data[0])
             return {
                 ...state,
                 get_country_loading: false,
@@ -33,6 +34,11 @@ const countryReducer = (state = initialState, action) => {
                 get_country_loading: false,
                 get_country_error: action.payload,
              }
+        case types.CLEAR_COUNTRY_DATA:
+            return {
+                ...state,
+                country_data: []
+            }
         default: return state
     }
 }

@@ -1,8 +1,10 @@
 export {
     getCountryData,
+    clearCountryData,
 } from './actions/country/country'
 
 export {
+    clearLatestRates,
     getLatestRates,
 } from './actions/latestRates/latestRates'
 

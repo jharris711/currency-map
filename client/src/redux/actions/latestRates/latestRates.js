@@ -26,6 +26,12 @@ const getLatestRatesFailure = error => {
     }
 }
 
+export const clearLatestRates = () => {
+    return {
+        type: types.CLEAR_LATEST_RATES,
+    }
+}
+
 
 export const getLatestRates = currency_code => {
     const url = {
