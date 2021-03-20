@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -35,44 +32,12 @@ import {
 import codes from '../../data/countryCodes';
 import { addToOrRemoveFromArray } from '../../utils';
 
-const BootstrapInput = withStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
     },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
-
-const inputStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
   },
 }));
 
@@ -80,23 +45,32 @@ const paperStyles = makeStyles((theme) => ({
   root: {
     zIndex: 999,
     position: 'absolute',
-    width: '250px',
+    width: '20vw',
     top: '10px',
     left: '10px',
-    minHeight: 'calc(100vh - 3.25vw)',
-    maxHeight: 'calc(100vh - 1vw)',
-    overflow: 'hidden',
-    padding: '20px',
+    minHeight: '97vh',
+    maxHeight: '97vh',
+    overflow: 'auto',
     backgroundColor: 'white',
   },
 }));
 
 const listStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: '25vh',
-    width: '12.5vw',
+    // maxHeight: '25vh',
+    // width: '12.5vw',
     overflowY: 'auto',
     overflowX: 'hidden',
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.pape,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+  nestedDark: {
+    paddingLeft: theme.spacing(4),
+    backgroundColor: '#e0e0e0',
   },
 }));
 
@@ -112,8 +86,8 @@ const MUIControl = ({
   clearCountryData,
   clearLatestRates,
 }) => {
+  const classes = useStyles();
   const paperClasses = paperStyles();
-  const inputClasses = inputStyles();
   const listClasses = listStyles();
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -193,7 +167,7 @@ const MUIControl = ({
       }
     );
     sendDataToTable(data_for_table);
-  }, [countries, selectedCurrencies, latest_rates]);
+  }, [countries, selectedCurrencies, latest_rates, sendDataToTable]);
 
   useEffect(() => {
     let lr_noti;
@@ -230,12 +204,22 @@ const MUIControl = ({
   return (
     <Paper className={paperClasses.root} elevation={3}>
       <Grid item xs={12}>
-        <Typography variant="h5" gutterBottom align="center">
+        <Typography
+          variant="h5"
+          gutterBottom
+          align="center"
+          style={{ padding: '10px' }}
+        >
           World Currency Map with React, Redux, and Leaflet.js
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1" gutterBottom align="center">
+        <Typography
+          variant="body1"
+          gutterBottom
+          align="center"
+          style={{ padding: '10px' }}
+        >
           Select a currency and receive information about it! Features
           available:
           <ul style={{ listStyle: 'none', textAlign: 'center', padding: '0' }}>
@@ -276,36 +260,58 @@ const MUIControl = ({
       <Divider />
       <br />
       <Grid item xs={12}>
-        <Typography variant="h6" gutterBottom align="center">
+        <Typography
+          variant="h6"
+          gutterBottom
+          align="center"
+          style={{ padding: '5px' }}
+        >
           Choose A Currency
         </Typography>
-        <FormControl className={inputClasses.margin}>
-          <FormHelperText>Select Currency</FormHelperText>
-          <Select
-            labelId="demo-customized-select-label"
-            id="demo-customized-select"
-            value={selectValue}
-            onChange={handleChange}
-            input={<BootstrapInput />}
-            style={{ minWidth: '200px', maxWidth: '200px' }}
+        <form
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {symbolOptions.map((symbol) => (
-              <MenuItem key={symbol.key} value={symbol.value}>
-                {symbol.text}
+            <TextField
+              id="standard-select-currency"
+              select
+              label="Select"
+              value={selectValue}
+              onChange={handleChange}
+              helperText="Please select a currency"
+            >
+              <MenuItem value="">
+                <em>None</em>
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              {symbolOptions.map((symbol) => (
+                <MenuItem key={symbol.key} value={symbol.value}>
+                  {symbol.text}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+        </form>
       </Grid>
       <br />
       <Grid item xs={12}>
-        {/* <Typography variant="subtitle1" gutterBottom>
-                   <strong>Currency Info:</strong>
-                </Typography> */}
-        <Typography variant="body1" gutterBottom align="center">
+        <Typography
+          variant="body1"
+          gutterBottom
+          align="center"
+          style={{ padding: '10px' }}
+        >
           <Grid item xs={12} md={6}>
             <List dense={true} className={listClasses.root}>
               {Array.from(selectedCurrencies).map((curr, index) => {

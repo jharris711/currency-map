@@ -39,7 +39,7 @@ export const getLatestRates = currency_code => {
         api: "api/latest",
         access_key: `?access_key=${FIXER_IO_API_KEY}`,
         base_symbol: `&base=${currency_code}`,
-        symbols: '&symbols=USD,GBP,JPY,EUR, BTC'
+        symbols: '&symbols=USD,GBP,JPY,EUR,BTC'
     }
     return dispatch => {
         dispatch(getLatestRatesRequest())

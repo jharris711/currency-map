@@ -1,25 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import Map from './components/map/Map'
-import MUIControl from './components/control/MUIControl'
-import Table from './components/table/Table'
+import ReactMap from './components/map/ReactMap';
+import MUIControl from './components/control/MUIControl';
+import Table from './components/table/Table';
 
-import { getSymbols } from './redux'
+import { getSymbols } from './redux';
 
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { useSnackbar } from 'notistack'
+import { useSnackbar } from 'notistack';
 
-const App = ({
-  symbols,
-  symbols_loading,
-  country_data,
-  getSymbols,
-}) => {
-
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+const App = ({ symbols, symbols_loading, country_data, getSymbols }) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const action = () => {
     return (
@@ -28,47 +22,46 @@ const App = ({
           <CircularProgress size={18} thickness={5} color="secondary" />
         </div>
       </>
-    )
-  }
+    );
+  };
   // Get the currency symbols from Fixer.io
   // on load:
   useEffect(() => {
-    getSymbols()
-  }, [getSymbols])
+    getSymbols();
+  }, [getSymbols]);
 
   useEffect(() => {
-    let s_noti
+    let s_noti;
     if (symbols_loading) {
-      enqueueSnackbar("Fetching currency symbols...", {
+      enqueueSnackbar('Fetching currency symbols...', {
         persist: true,
         action,
-      })
+      });
     } else {
-      closeSnackbar(s_noti)
+      closeSnackbar(s_noti);
     }
-  }, [symbols_loading, enqueueSnackbar, closeSnackbar])
+  }, [symbols_loading, enqueueSnackbar, closeSnackbar]);
 
   return (
-      <div className="App">
-        <Map />
-        <MUIControl />
-        <Table />
-      </div>
-  )
-}
+    <div className="App">
+      <ReactMap />
+      <MUIControl />
+    </div>
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     symbols: state.symbols.symbols,
     country_data: state.country.country_data,
     symbols_loading: state.symbols.symbols_loading,
-  }
-}
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getSymbols: () => dispatch(getSymbols()),
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);
